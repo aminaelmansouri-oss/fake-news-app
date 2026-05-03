@@ -56,7 +56,7 @@ fake-news-app/
 * Pandas
 * TF-IDF
 
-### 🌐 Web
+###  Web
 
 * Flask (Backend)
 * HTML / CSS / JavaScript (Frontend)
@@ -118,7 +118,7 @@ Le modèle est entraîné sur un dataset de fake news contenant :
 
 
 
-## 📌 Conclusion
+##  Conclusion
 
 Ce projet combine le Machine Learning et le développement web pour proposer une solution simple de détection des fake news, contribuant à lutter contre la désinformation.
 
