@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TruthGuard — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/dashboard.css"/>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-brand"><span class="brand-icon">⬡</span><span>TruthGuard</span></a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">Analyser</a>
+    <a href="dashboard.html" class="nav-link active">Dashboard</a>
+    <a href="history.html" class="nav-link">Historique</a>
+    <a href="about.html" class="nav-link">À propos</a>
+  </div>
+  <div class="nav-status">
+    <span class="status-dot" id="apiStatus"></span>
+    <span id="statusLabel">API</span>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1 class="page-title">Dashboard</h1>
+  <p class="page-sub">Statistiques en temps réel des analyses TruthGuard</p>
+  <button class="refresh-btn" onclick="loadDashboard()">↻ Actualiser</button>
+</div>
+
+<!-- KPI CARDS -->
+<div class="kpi-grid" id="kpiGrid">
+  <div class="kpi-card" id="kpi-total">
+    <div class="kpi-label">Total analysé</div>
+    <div class="kpi-value" id="kpiTotal">—</div>
+    <div class="kpi-sub">articles</div>
+  </div>
+  <div class="kpi-card fake-kpi" id="kpi-fake">
+    <div class="kpi-label">Fake News</div>
+    <div class="kpi-value fake-color" id="kpiFake">—</div>
+    <div class="kpi-sub" id="kpiFakeRatio">—%</div>
+  </div>
+  <div class="kpi-card real-kpi" id="kpi-real">
+    <div class="kpi-label">Real News</div>
+    <div class="kpi-value real-color" id="kpiReal">—</div>
+    <div class="kpi-sub" id="kpiRealRatio">—%</div>
+  </div>
+  <div class="kpi-card" id="kpi-conf">
+    <div class="kpi-label">Confiance moy.</div>
+    <div class="kpi-value accent-color" id="kpiConf">—</div>
+    <div class="kpi-sub">%</div>
+  </div>
+</div>
+
+<!-- CHARTS ROW -->
+<div class="charts-row">
+
+  <!-- Donut chart -->
+  <div class="chart-card">
+    <h3 class="chart-title">Répartition Fake / Real</h3>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 200 200" id="donutSvg">
+        <circle class="donut-bg" cx="100" cy="100" r="70" fill="none" stroke="#1a1a28" stroke-width="28"/>
+        <circle class="donut-fake" cx="100" cy="100" r="70" fill="none" stroke="#ff3b5c" stroke-width="28"
+          stroke-dasharray="0 440" stroke-dashoffset="110" stroke-linecap="round" id="donutFake"/>
+        <circle class="donut-real" cx="100" cy="100" r="70" fill="none" stroke="#00e5a0" stroke-width="28"
+          stroke-dasharray="0 440" stroke-dashoffset="110" stroke-linecap="round" id="donutReal"/>
+      </svg>
+      <div class="donut-center">
+        <div class="donut-total" id="donutTotal">0</div>
+        <div class="donut-label-sm">analyses</div>
+      </div>
+    </div>
+    <div class="donut-legend">
+      <div class="legend-item">
+        <span class="legend-dot fake-dot"></span>
+        <span id="legendFake">Fake: —</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot real-dot"></span>
+        <span id="legendReal">Real: —</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bar chart — 7 days -->
+  <div class="chart-card flex-2">
+    <h3 class="chart-title">Activité — 7 derniers jours</h3>
+    <div class="bar-chart" id="barChart">
+      <div class="bar-empty">Aucune donnée disponible</div>
+    </div>
+    <div class="bar-legend">
+      <span class="legend-item"><span class="legend-dot fake-dot"></span>Fake</span>
+      <span class="legend-item"><span class="legend-dot real-dot"></span>Real</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- RECENT TABLE -->
+<div class="recent-section">
+  <h3 class="section-title">Analyses récentes</h3>
+  <div class="table-wrap">
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Aperçu</th>
+          <th>Verdict</th>
+          <th>Confiance</th>
+        </tr>
+      </thead>
+      <tbody id="recentTbody">
+        <tr><td colspan="6" class="empty-row">Chargement...</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <a href="history.html" class="view-all-link">Voir l'historique complet →</a>
+</div>
+
+<footer class="footer">
+  <span>TruthGuard © 2024</span>
+  <span class="sep">·</span>
+  <span>Dashboard</span>
+</footer>
+
+<script src="../js/api.js"></script>
+<script src="../js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TruthGuard — À propos</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<style>
+.about-wrap { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 5rem; position: relative; z-index: 1; }
+.about-tag {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.3rem 0.8rem; border: 1px solid var(--accent-dim);
+  border-radius: 100px; margin-bottom: 2rem; background: var(--accent-dim);
+}
+.about-title {
+  font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1.5rem;
+}
+.about-lead {
+  font-size: 1.05rem; color: var(--text-muted); line-height: 1.75;
+  margin-bottom: 3rem;
+}
+
+.pipeline {
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; margin-bottom: 3rem;
+}
+.pipe-step {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding: 1.5rem; border-bottom: 1px solid var(--border);
+  background: var(--surface); transition: background var(--transition);
+}
+.pipe-step:last-child { border-bottom: none; }
+.pipe-step:hover { background: var(--surface2); }
+.pipe-num {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+  color: var(--accent); background: var(--accent-dim);
+  border: 1px solid var(--accent); border-radius: var(--radius-sm);
+  padding: 0.2rem 0.5rem; flex-shrink: 0; margin-top: 0.15rem;
+}
+.pipe-content h4 {
+  font-family: var(--font-display); font-size: 0.95rem; font-weight: 700;
+  margin-bottom: 0.35rem; color: var(--text);
+}
+.pipe-content p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+
+.tech-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; margin-bottom: 3rem;
+}
+.tech-card {
+  background: var(--surface); padding: 1.5rem;
+  transition: background var(--transition);
+}
+.tech-card:hover { background: var(--surface2); }
+.tech-cat {
+  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.tech-list { list-style: none; }
+.tech-list li {
+  font-size: 0.82rem; color: var(--text-muted); padding: 0.2rem 0;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.tech-list li::before { content: "→"; color: var(--text-dim); font-size: 0.7rem; }
+
+.metric-banner {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; margin-bottom: 3rem;
+}
+.metric-item { background: var(--surface2); padding: 1.5rem; text-align: center; }
+.metric-val {
+  font-family: var(--font-display); font-size: 2.25rem; font-weight: 800;
+  letter-spacing: -0.04em; color: var(--text); margin-bottom: 0.25rem;
+}
+.metric-val.fake-color { color: var(--fake); }
+.metric-val.real-color { color: var(--real); }
+.metric-val.accent-color { color: var(--accent); }
+.metric-lbl { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.cta-section {
+  text-align: center;
+  padding: 2.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.cta-section h3 {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+.cta-section p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-brand"><span class="brand-icon">⬡</span><span>TruthGuard</span></a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">Analyser</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="history.html" class="nav-link">Historique</a>
+    <a href="about.html" class="nav-link active">À propos</a>
+  </div>
+</nav>
+
+<div class="about-wrap">
+  <div class="about-tag">Intelligence Artificielle · NLP · Machine Learning</div>
+
+  <h1 class="about-title">Comment fonctionne TruthGuard ?</h1>
+  <p class="about-lead">
+    TruthGuard est une plateforme web intelligente de détection des fake news par IA, développée en Python (Flask) et JavaScript. Elle combine des techniques avancées de traitement du langage naturel (NLP) et un modèle de Machine Learning entraîné sur des milliers d'articles réels et faux.
+  </p>
+
+  <!-- PIPELINE -->
+  <div class="pipeline">
+    <div class="pipe-step">
+      <span class="pipe-num">01</span>
+      <div class="pipe-content">
+        <h4>Entrée — Texte ou URL</h4>
+        <p>L'utilisateur saisit directement un texte d'actualité, ou colle l'URL d'un article. Dans le cas d'une URL, un scraper basé sur BeautifulSoup extrait automatiquement le titre et le contenu principal de la page.</p>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <span class="pipe-num">02</span>
+      <div class="pipe-content">
+        <h4>Nettoyage NLP — Pipeline unifié</h4>
+        <p>Le texte brut passe par un pipeline NLP : suppression des URLs, balises HTML et ponctuation → tokenisation → filtrage des stopwords → lemmatisation guidée par POS tags (Penn Treebank + WordNet). Ce processus réduit le bruit tout en préservant la sémantique.</p>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <span class="pipe-num">03</span>
+      <div class="pipe-content">
+        <h4>Vectorisation TF-IDF (Word + Char)</h4>
+        <p>Deux vectoriseurs TF-IDF en parallèle : un <strong>word-level</strong> (unigrammes + bigrammes, 10k features) et un <strong>char-level</strong> (3-5 grams, 5k features). Les matrices sparse sont concatenées pour capturer à la fois la sémantique lexicale et les patterns morphologiques caractéristiques des fake news.</p>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <span class="pipe-num">04</span>
+      <div class="pipe-content">
+        <h4>Prédiction — Logistic Regression</h4>
+        <p>Le modèle principal est une Régression Logistique avec <code>class_weight="balanced"</code> entraînée sur le dataset ISOT (Fake.csv + True.csv) avec split stratifié 80/20. Le modèle retourne des probabilités softmax → score Fake / Real et score de confiance global.</p>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <span class="pipe-num">05</span>
+      <div class="pipe-content">
+        <h4>Résultats & Historique</h4>
+        <p>Le verdict (FAKE / REAL), le score de confiance et les méta-données sont retournés en JSON, affichés dans l'interface et sauvegardés en base SQLite pour consultation ultérieure dans l'historique et le dashboard.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metric-banner">
+    <div class="metric-item">
+      <div class="metric-val accent-color">~97%</div>
+      <div class="metric-lbl">Accuracy (dataset ISOT)</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-val fake-color">15k+</div>
+      <div class="metric-lbl">Features TF-IDF</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-val real-color">44k+</div>
+      <div class="metric-lbl">Articles d'entraînement</div>
+    </div>
+  </div>
+
+  <!-- TECH STACK -->
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="tech-cat">Backend</div>
+      <ul class="tech-list">
+        <li>Python 3.10+</li>
+        <li>Flask + Flask-CORS</li>
+        <li>SQLite (historique)</li>
+        <li>BeautifulSoup4</li>
+        <li>Requests</li>
+      </ul>
+    </div>
+    <div class="tech-card">
+      <div class="tech-cat">IA / NLP</div>
+      <ul class="tech-list">
+        <li>scikit-learn</li>
+        <li>NLTK (tokenisation, POS)</li>
+        <li>TF-IDF Word + Char</li>
+        <li>Logistic Regression</li>
+        <li>SciPy (sparse matrices)</li>
+      </ul>
+    </div>
+    <div class="tech-card">
+      <div class="tech-cat">Frontend</div>
+      <ul class="tech-list">
+        <li>HTML5 + CSS3</li>
+        <li>Vanilla JavaScript</li>
+        <li>Fetch API (REST)</li>
+        <li>SVG Charts natifs</li>
+        <li>Design system CSS vars</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h3>Prêt à analyser un article ?</h3>
+    <p>Collez un texte ou une URL et obtenez votre verdict en quelques secondes.</p>
+    <a href="../index.html" class="analyze-btn" style="display:inline-flex;width:auto;padding:0.85rem 2.5rem;text-decoration:none;border-radius:8px">
+      <span class="btn-text">Démarrer une analyse</span>
+      <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<footer class="footer">
+  <span>TruthGuard © 2024</span>
+  <span class="sep">·</span>
+  <span>Flask · scikit-learn · NLTK</span>
+</footer>
+</body>
+</html>

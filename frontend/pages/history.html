@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TruthGuard — Historique</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/dashboard.css"/>
+<style>
+.filters {
+  display: flex; gap: 0.75rem; align-items: center;
+  flex-wrap: wrap; margin-bottom: 1.5rem;
+}
+.filter-btn {
+  padding: 0.4rem 0.9rem; border-radius: 100px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text-muted); font-size: 0.8rem; cursor: pointer;
+  font-family: var(--font-mono); transition: var(--transition);
+}
+.filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.filter-btn:hover:not(.active) { border-color: var(--border-bright); color: var(--text); }
+.history-count {
+  margin-left: auto; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);
+}
+.full-table-wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+.text-cell {
+  max-width: 300px; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; color: var(--text-muted); font-size: 0.82rem;
+}
+.source-cell {
+  max-width: 180px; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);
+}
+.sort-btn { cursor: pointer; user-select: none; }
+.sort-btn:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-brand"><span class="brand-icon">⬡</span><span>TruthGuard</span></a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">Analyser</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="history.html" class="nav-link active">Historique</a>
+    <a href="about.html" class="nav-link">À propos</a>
+  </div>
+  <div class="nav-status">
+    <span class="status-dot" id="apiStatus"></span>
+    <span id="statusLabel">API</span>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1 class="page-title">Historique</h1>
+  <p class="page-sub">Toutes vos analyses de détection</p>
+  <button class="refresh-btn" onclick="loadHistory()">↻ Actualiser</button>
+</div>
+
+<div class="full-table-wrap">
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterHistory('all', this)">Tous</button>
+    <button class="filter-btn" onclick="filterHistory('FAKE', this)">Fake News</button>
+    <button class="filter-btn" onclick="filterHistory('REAL', this)">Real News</button>
+    <button class="filter-btn" onclick="filterHistory('url', this)">URLs</button>
+    <button class="filter-btn" onclick="filterHistory('text', this)">Textes</button>
+    <span class="history-count" id="historyCount">— résultats</span>
+  </div>
+
+  <div class="table-wrap">
+    <table class="history-table" id="historyTable">
+      <thead>
+        <tr>
+          <th class="sort-btn" onclick="sortHistory('id')"># ↕</th>
+          <th class="sort-btn" onclick="sortHistory('created_at')">Date ↕</th>
+          <th>Type</th>
+          <th>Aperçu du texte</th>
+          <th>Source</th>
+          <th class="sort-btn" onclick="sortHistory('prediction')">Verdict ↕</th>
+          <th class="sort-btn" onclick="sortHistory('confidence')">Confiance ↕</th>
+          <th>Mots</th>
+        </tr>
+      </thead>
+      <tbody id="historyTbody">
+        <tr><td colspan="8" class="empty-row">Chargement...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer class="footer" style="margin-top:2rem">
+  <span>TruthGuard © 2024</span>
+  <span class="sep">·</span>
+  <a href="../index.html">Nouvelle analyse →</a>
+</footer>
+
+<script src="../js/api.js"></script>
+<script>
+let allHistory = [];
+let currentFilter = 'all';
+let sortKey = 'id';
+let sortDir = -1;
+
+async function checkApiStatus() {
+  const dot = document.getElementById("apiStatus");
+  const online = await API.checkHealth();
+  if (dot) dot.className = "status-dot " + (online ? "online" : "offline");
+  const lbl = document.getElementById("statusLabel");
+  if (lbl) lbl.textContent = online ? "API Online" : "API Offline";
+}
+checkApiStatus();
+
+async function loadHistory() {
+  try {
+    allHistory = await API.getHistory(200);
+    renderHistory();
+  } catch (e) {
+    document.getElementById("historyTbody").innerHTML =
+      '<tr><td colspan="8" class="empty-row">⚠ Impossible de charger l\'historique. API offline?</td></tr>';
+  }
+}
+
+function filterHistory(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderHistory();
+}
+
+function sortHistory(key) {
+  if (sortKey === key) sortDir *= -1;
+  else { sortKey = key; sortDir = -1; }
+  renderHistory();
+}
+
+function renderHistory() {
+  let data = [...allHistory];
+
+  // Filter
+  if (currentFilter === 'FAKE') data = data.filter(r => r.prediction === 'FAKE');
+  else if (currentFilter === 'REAL') data = data.filter(r => r.prediction === 'REAL');
+  else if (currentFilter === 'url') data = data.filter(r => r.input_type === 'url');
+  else if (currentFilter === 'text') data = data.filter(r => r.input_type === 'text');
+
+  // Sort
+  data.sort((a, b) => {
+    let va = a[sortKey], vb = b[sortKey];
+    if (typeof va === 'string') return va.localeCompare(vb) * sortDir;
+    return (va - vb) * sortDir;
+  });
+
+  const count = document.getElementById("historyCount");
+  if (count) count.textContent = `${data.length} résultat${data.length !== 1 ? 's' : ''}`;
+
+  const tbody = document.getElementById("historyTbody");
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="empty-row">Aucune analyse trouvée</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = data.map(row => {
+    const isFake = row.prediction === 'FAKE';
+    const date = new Date(row.created_at).toLocaleString("fr-FR");
+    const preview = (row.text_preview || "").substring(0, 80);
+    const source = row.source?.startsWith("http")
+      ? new URL(row.source).hostname
+      : (row.source || "Manuel");
+    const confPct = Math.round(row.confidence * 100);
+    const typeIcon = row.input_type === 'url' ? '🔗' : '✎';
+
+    return `<tr>
+      <td style="font-family:var(--font-mono);color:var(--text-dim);font-size:0.75rem">#${row.id}</td>
+      <td style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);white-space:nowrap">${date}</td>
+      <td style="text-align:center">${typeIcon}</td>
+      <td class="text-cell" title="${row.text_preview || ''}">${preview}${preview.length >= 80 ? '…' : ''}</td>
+      <td class="source-cell" title="${row.source || ''}">${source}</td>
+      <td><span class="verdict-pill ${isFake ? 'pill-fake' : 'pill-real'}">${row.prediction}</span></td>
+      <td>
+        <div class="conf-bar-mini">
+          <div class="conf-track-mini"><div class="conf-fill-mini" style="width:${confPct}%"></div></div>
+          <span class="conf-num">${confPct}%</span>
+        </div>
+      </td>
+      <td style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted)">${row.word_count || '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+loadHistory();
+</script>
+</body>
+</html>
