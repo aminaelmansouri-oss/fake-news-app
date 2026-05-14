@@ -59,7 +59,7 @@ fake-news-app/
 ###  Web
 
 * Flask (Backend)
-* HTML / CSS / JavaScript (Frontend)
+* react js (Frontend)
 
 ---
 
