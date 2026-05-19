@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { Trash2, Eye, EyeOff, LogOut, X } from "lucide-react";
+import { Trash2, Eye, EyeOff, LogOut, X, Database } from "lucide-react";
+import { DataScrapingJournal } from "./components/DataScrapingJournal";
 
-type Page = "splash" | "welcome" | "auth" | "detect";
+type Page = "splash" | "welcome" | "auth" | "detect" | "journal";
 type AuthMode = "signin" | "signup";
 type Verdict = "TRUE" | "FALSE" | "MIXED";
 
@@ -108,6 +109,7 @@ function SplashPage({ onFinish }: { onFinish: () => void }) {
           className="absolute inset-0 w-full h-full object-cover"
         />
       )}
+
       {/* Fallback branded screen when no video */}
       {videoFailed && (
         <div className="relative z-10 text-center px-8">
@@ -124,6 +126,19 @@ function SplashPage({ onFinish }: { onFinish: () => void }) {
           <div className="w-16 h-px bg-white/30 mx-auto mt-8" />
         </div>
       )}
+
+      {/* Dark gradient overlay so UI is readable over any video */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30 pointer-events-none" />
+
+      {/* Top-left logo watermark */}
+      <div className="absolute top-6 left-8 z-20">
+        <span className="text-white/80 text-lg font-black tracking-tight" style={SERIF}>
+          TruthGuard
+        </span>
+        <span className="ml-2 text-white/40 text-xs tracking-widest uppercase" style={MONO}>
+          Verification Engine
+        </span>
+      </div>
 
       {/* Skip button */}
       <button
@@ -473,7 +488,7 @@ function AuthPage({ onAuth }: { onAuth: (user: UserData) => void }) {
 }
 
 /* ─── DETECTION PAGE ─── */
-function DetectionPage({ user, onLogout }: { user: UserData; onLogout: () => void }) {
+function DetectionPage({ user, onLogout, onOpenJournal }: { user: UserData; onLogout: () => void; onOpenJournal: () => void }) {
   const [inputText, setInputText] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<{ verdict: Verdict; confidence: number; summary: string } | null>(null);
@@ -514,9 +529,14 @@ function DetectionPage({ user, onLogout }: { user: UserData; onLogout: () => voi
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <span className="text-xs tracking-widest uppercase text-muted-foreground hidden md:block" style={MONO}>{user.name}</span>
           <h1 className="text-2xl md:text-3xl font-black tracking-tight" style={SERIF}>TruthGuard</h1>
-          <button onClick={onLogout} className="flex items-center gap-2 text-xs tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors" style={MONO}>
-            <LogOut size={13} /><span className="hidden md:block">Sign Out</span>
-          </button>
+          <div className="flex items-center gap-4">
+            <button onClick={onOpenJournal} className="flex items-center gap-2 text-xs tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors" style={MONO}>
+              <Database size={13} /><span className="hidden md:block">Scraping Journal</span>
+            </button>
+            <button onClick={onLogout} className="flex items-center gap-2 text-xs tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors" style={MONO}>
+              <LogOut size={13} /><span className="hidden md:block">Sign Out</span>
+            </button>
+          </div>
         </div>
         <div className="max-w-7xl mx-auto mt-3 space-y-1">
           <div className="h-px bg-border" />
@@ -664,7 +684,8 @@ function DetectionPage({ user, onLogout }: { user: UserData; onLogout: () => voi
 
             <div className="mt-8 relative overflow-hidden bg-muted h-36 hidden md:block">
               <img
-                src="./Pasted image.png?w=700&h=200&fit=crop&auto=format"
+                src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=500&h=200&fit=crop&auto=format"
+                alt="Person reading a broadsheet newspaper at a cafe table"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-foreground/30" />
@@ -689,7 +710,8 @@ export default function App() {
       {page === "splash" && <SplashPage onFinish={() => setPage("welcome")} />}
       {page === "welcome" && <WelcomePage onEnter={() => setPage("auth")} />}
       {page === "auth"    && <AuthPage onAuth={u => { setUser(u); setPage("detect"); }} />}
-      {page === "detect"  && user && <DetectionPage user={user} onLogout={() => { setUser(null); setPage("welcome"); }} />}
+      {page === "detect"  && user && <DetectionPage user={user} onLogout={() => { setUser(null); setPage("welcome"); }} onOpenJournal={() => setPage("journal")} />}
+      {page === "journal" && <DataScrapingJournal onClose={() => setPage("detect")} />}
     </div>
   );
 }
