@@ -1,0 +1,188 @@
+/* Dashboard specific styles */
+
+.page-header {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 2.5rem 2.5rem 1.5rem; max-width: 1100px; margin: 0 auto;
+}
+.page-title {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.page-sub { color: var(--text-muted); font-size: 0.875rem; }
+.refresh-btn {
+  margin-left: auto; padding: 0.5rem 1rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text-muted);
+  cursor: pointer; font-family: var(--font-mono); font-size: 0.8rem;
+  transition: var(--transition);
+}
+.refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* KPIs */
+.kpi-grid {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--border);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  max-width: 1100px; margin: 0 auto 2rem;
+}
+.kpi-card {
+  background: var(--surface); padding: 1.75rem 1.5rem;
+  transition: background var(--transition);
+}
+.kpi-card:hover { background: var(--surface2); }
+.kpi-label {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+.kpi-value {
+  font-family: var(--font-display); font-size: 2.75rem; font-weight: 800;
+  letter-spacing: -0.04em; line-height: 1;
+  color: var(--text); margin-bottom: 0.25rem;
+}
+.kpi-sub { font-size: 0.8rem; color: var(--text-muted); }
+.fake-color { color: var(--fake); }
+.real-color { color: var(--real); }
+.accent-color { color: var(--accent); }
+
+/* CHARTS ROW */
+.charts-row {
+  position: relative; z-index: 1;
+  display: flex; gap: 1px; background: var(--border);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  max-width: 1100px; margin: 0 auto 2rem;
+}
+.chart-card {
+  background: var(--surface); padding: 1.75rem;
+  flex: 1;
+}
+.flex-2 { flex: 2; }
+.chart-title {
+  font-family: var(--font-display); font-size: 0.95rem; font-weight: 700;
+  margin-bottom: 1.5rem; color: var(--text);
+}
+
+/* DONUT */
+.donut-wrap {
+  position: relative; width: 180px; height: 180px;
+  margin: 0 auto 1rem;
+}
+.donut-svg { transform: rotate(-90deg); }
+.donut-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.donut-total {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 800;
+  color: var(--text); letter-spacing: -0.03em;
+}
+.donut-label-sm { font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }
+
+.donut-legend {
+  display: flex; gap: 1.5rem; justify-content: center;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.8rem; color: var(--text-muted);
+}
+.legend-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.fake-dot { background: var(--fake); }
+.real-dot { background: var(--real); }
+
+/* BAR CHART */
+.bar-chart {
+  display: flex; align-items: flex-end; gap: 6px;
+  height: 160px; padding: 0.5rem 0;
+}
+.bar-empty {
+  width: 100%; text-align: center; color: var(--text-dim);
+  font-size: 0.85rem; font-family: var(--font-mono);
+  align-self: center;
+}
+.bar-group {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.bar-day-label {
+  font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-dim);
+  margin-top: 4px;
+}
+.bars-inner {
+  display: flex; gap: 2px; align-items: flex-end; width: 100%;
+  justify-content: center;
+}
+.bar-segment {
+  width: 12px; border-radius: 3px 3px 0 0;
+  min-height: 2px;
+  transition: height 0.6s ease;
+}
+.bar-segment.fake { background: var(--fake); }
+.bar-segment.real { background: var(--real); }
+
+.bar-legend {
+  display: flex; gap: 1rem; margin-top: 0.5rem;
+}
+
+/* RECENT TABLE */
+.recent-section {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto 2rem; padding: 0 1.5rem;
+}
+.section-title {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 1rem;
+}
+.table-wrap { overflow-x: auto; }
+.history-table {
+  width: 100%; border-collapse: collapse;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden;
+}
+.history-table th {
+  background: var(--surface2); padding: 0.75rem 1rem;
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim);
+  text-align: left; border-bottom: 1px solid var(--border);
+}
+.history-table td {
+  padding: 0.7rem 1rem; border-bottom: 1px solid var(--border);
+  font-size: 0.85rem; vertical-align: middle;
+}
+.history-table tr:last-child td { border-bottom: none; }
+.history-table tr:hover td { background: var(--surface2); }
+
+.empty-row { text-align: center; color: var(--text-dim); padding: 2rem; font-family: var(--font-mono); font-size: 0.8rem; }
+
+.verdict-pill {
+  display: inline-block; padding: 0.2rem 0.6rem; border-radius: 100px;
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+}
+.pill-fake { background: var(--fake-dim); color: var(--fake); border: 1px solid var(--fake); }
+.pill-real { background: var(--real-dim); color: var(--real); border: 1px solid var(--real); }
+
+.conf-bar-mini {
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.conf-track-mini {
+  width: 60px; height: 4px; background: var(--bg); border-radius: 100px; overflow: hidden;
+}
+.conf-fill-mini {
+  height: 100%; background: var(--accent); border-radius: 100px;
+}
+.conf-num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
+
+.view-all-link {
+  display: inline-block; margin-top: 1rem;
+  color: var(--accent); text-decoration: none; font-size: 0.875rem;
+  transition: var(--transition);
+}
+.view-all-link:hover { opacity: 0.75; }
+
+@media (max-width: 768px) {
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .charts-row { flex-direction: column; }
+  .page-header { flex-wrap: wrap; padding: 1.5rem 1rem; }
+}

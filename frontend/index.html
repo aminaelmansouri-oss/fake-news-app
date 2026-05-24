@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
   <!DOCTYPE html>
   <html lang="en">
@@ -14,3 +15,228 @@
     </body>
   </html>
   
+=======
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TruthGuard — Détection de Fake News par IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- Background grid -->
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-brand">
+    <span class="brand-icon">⬡</span>
+    <span>TruthGuard</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Analyser</a>
+    <a href="pages/dashboard.html" class="nav-link">Dashboard</a>
+    <a href="pages/history.html" class="nav-link">Historique</a>
+    <a href="pages/about.html" class="nav-link">À propos</a>
+  </div>
+  <div class="nav-status">
+    <span class="status-dot" id="apiStatus"></span>
+    <span id="statusLabel">API</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag">Intelligence Artificielle · NLP · Machine Learning</div>
+  <h1 class="hero-title">
+    <span class="title-line">Détectez les</span>
+    <span class="title-line accent">Fake News</span>
+    <span class="title-line">en temps réel</span>
+  </h1>
+  <p class="hero-sub">Analysez n'importe quel article ou texte grâce à notre modèle IA entraîné sur des milliers d'articles. Score de confiance, analyse NLP et historique inclus.</p>
+</header>
+
+<!-- MAIN ANALYZER -->
+<main class="analyzer-section">
+  <div class="analyzer-card">
+
+    <!-- TAB SWITCHER -->
+    <div class="tabs">
+      <button class="tab active" data-tab="text" onclick="switchTab('text')">
+        <span class="tab-icon">✎</span> Texte
+      </button>
+      <button class="tab" data-tab="url" onclick="switchTab('url')">
+        <span class="tab-icon">⊕</span> URL
+      </button>
+    </div>
+
+    <!-- TEXT INPUT -->
+    <div class="tab-panel" id="panel-text">
+      <div class="input-group">
+        <label class="input-label">Collez votre texte ou article ici</label>
+        <textarea id="textInput" class="input-area" placeholder="Entrez le texte de l'article à analyser... (minimum 20 caractères)" rows="7"></textarea>
+        <div class="input-meta">
+          <span id="charCount">0 caractères</span>
+          <span id="wordCount">0 mots</span>
+        </div>
+      </div>
+      <button class="analyze-btn" onclick="analyzeText()">
+        <span class="btn-text">Analyser le texte</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+
+    <!-- URL INPUT -->
+    <div class="tab-panel hidden" id="panel-url">
+      <div class="input-group">
+        <label class="input-label">URL de l'article</label>
+        <div class="url-field">
+          <span class="url-icon">🔗</span>
+          <input type="url" id="urlInput" class="input-url" placeholder="https://example.com/article..."/>
+        </div>
+        <p class="url-hint">Le contenu de la page sera extrait automatiquement par scraping.</p>
+      </div>
+      <button class="analyze-btn" onclick="analyzeUrl()">
+        <span class="btn-text">Analyser l'URL</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+
+    <!-- LOADING STATE -->
+    <div class="loading-state hidden" id="loadingState">
+      <div class="loading-ring">
+        <div></div><div></div><div></div><div></div>
+      </div>
+      <p class="loading-text" id="loadingText">Analyse en cours...</p>
+      <div class="loading-steps">
+        <span class="step" id="step1">Extraction du texte</span>
+        <span class="step-sep">→</span>
+        <span class="step" id="step2">Nettoyage NLP</span>
+        <span class="step-sep">→</span>
+        <span class="step" id="step3">Prédiction IA</span>
+      </div>
+    </div>
+
+    <!-- ERROR STATE -->
+    <div class="error-state hidden" id="errorState">
+      <span class="error-icon">⚠</span>
+      <p id="errorMsg">Une erreur est survenue.</p>
+      <button class="retry-btn" onclick="resetState()">Réessayer</button>
+    </div>
+
+  </div>
+</main>
+
+<!-- RESULT SECTION -->
+<section class="result-section hidden" id="resultSection">
+  <div class="result-card">
+
+    <!-- Verdict banner -->
+    <div class="verdict-banner" id="verdictBanner">
+      <div class="verdict-icon" id="verdictIcon"></div>
+      <div class="verdict-text">
+        <h2 class="verdict-label" id="verdictLabel"></h2>
+        <p class="verdict-desc" id="verdictDesc"></p>
+      </div>
+      <div class="verdict-badge" id="verdictBadge"></div>
+    </div>
+
+    <!-- Scores -->
+    <div class="scores-grid">
+      <div class="score-box fake-box">
+        <div class="score-label">Fake News</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar fake-bar" id="fakeBar"></div>
+        </div>
+        <div class="score-value" id="fakePct">—</div>
+      </div>
+      <div class="score-box real-box">
+        <div class="score-label">Real News</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar real-bar" id="realBar"></div>
+        </div>
+        <div class="score-value" id="realPct">—</div>
+      </div>
+    </div>
+
+    <!-- Confidence gauge -->
+    <div class="confidence-section">
+      <div class="conf-header">
+        <span>Score de confiance</span>
+        <span class="conf-badge" id="confBadge"></span>
+      </div>
+      <div class="gauge-wrap">
+        <div class="gauge-track">
+          <div class="gauge-fill" id="gaugeFill"></div>
+        </div>
+        <div class="gauge-pct" id="gaugePct"></div>
+      </div>
+    </div>
+
+    <!-- Metadata -->
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-key">Mots analysés</span>
+        <span class="meta-val" id="metaWords">—</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Source</span>
+        <span class="meta-val" id="metaSource">—</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Fiabilité</span>
+        <span class="meta-val" id="metaConf">—</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="result-actions">
+      <button class="action-btn primary" onclick="resetState()">Nouvelle analyse</button>
+      <button class="action-btn secondary" onclick="copyResult()">Copier le résultat</button>
+      <a href="pages/history.html" class="action-btn ghost">Voir l'historique</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES STRIP -->
+<section class="features">
+  <div class="feature">
+    <div class="feat-icon">◈</div>
+    <h3>Modèle TF-IDF + NLP</h3>
+    <p>Analyse sémantique avec Word & Char n-grams, lemmatisation et features linguistiques.</p>
+  </div>
+  <div class="feature">
+    <div class="feat-icon">◉</div>
+    <h3>Scraping automatique</h3>
+    <p>Extraction du contenu depuis n'importe quelle URL d'article en quelques secondes.</p>
+  </div>
+  <div class="feature">
+    <div class="feat-icon">◎</div>
+    <h3>Score de confiance</h3>
+    <p>Probabilités précises (Fake/Real) avec niveau de confiance High / Medium / Low.</p>
+  </div>
+  <div class="feature">
+    <div class="feat-icon">◆</div>
+    <h3>Historique complet</h3>
+    <p>Toutes vos analyses sauvegardées avec statistiques et visualisations interactives.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>TruthGuard © 2024</span>
+  <span class="sep">·</span>
+  <span>Powered by Logistic Regression + TF-IDF NLP</span>
+  <span class="sep">·</span>
+  <a href="pages/about.html">À propos</a>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
+>>>>>>> 43a67f7227672bec33602daf961271e7683a18bd
