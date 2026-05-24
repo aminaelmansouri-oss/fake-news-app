@@ -109,67 +109,12 @@ function SplashPage({ onFinish }: { onFinish: () => void }) {
           className="absolute inset-0 w-full h-full object-cover"
         />
       )}
-
-      {/* Fallback branded screen when no video */}
-      {videoFailed && (
-        <div className="relative z-10 text-center px-8">
-          <div className="w-16 h-px bg-white/30 mx-auto mb-8" />
-          <p className="text-white/40 text-xs tracking-[0.5em] uppercase mb-6" style={MONO}>
-            Presenting
-          </p>
-          <h1 className="text-white text-6xl md:text-8xl font-black tracking-tight leading-none" style={SERIF}>
-            TruthGuard
-          </h1>
-          <p className="text-white/50 text-xs tracking-widest uppercase mt-5" style={MONO}>
-            The Independent Journal of Digital Verification
-          </p>
-          <div className="w-16 h-px bg-white/30 mx-auto mt-8" />
-        </div>
-      )}
-
-      {/* Dark gradient overlay so UI is readable over any video */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30 pointer-events-none" />
-
-      {/* Top-left logo watermark */}
-      <div className="absolute top-6 left-8 z-20">
-        <span className="text-white/80 text-lg font-black tracking-tight" style={SERIF}>
-          TruthGuard
-        </span>
-        <span className="ml-2 text-white/40 text-xs tracking-widest uppercase" style={MONO}>
-          Verification Engine
-        </span>
-      </div>
-
-      {/* Skip button */}
-      <button
-        onClick={exit}
-        className="absolute top-6 right-8 z-20 text-white/50 hover:text-white text-xs tracking-widest uppercase transition-colors flex items-center gap-2"
-        style={MONO}
-      >
-        Skip <span className="text-base leading-none">&rsaquo;</span>
-      </button>
-
-      {/* Bottom bar: tagline + progress */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 px-8 pb-8">
-        <p className="text-white/40 text-xs tracking-[0.4em] uppercase text-center mb-4" style={MONO}>
-          Separating fact from fiction — one article at a time
-        </p>
-        {/* Progress bar (only when video is playing) */}
-        {!videoFailed && (
-          <div className="h-px bg-white/15 w-full">
-            <div
-              className="h-full bg-white/50 transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        )}
         {/* Fallback countdown bar */}
         {videoFailed && (
           <div className="h-px bg-white/15 w-full overflow-hidden">
             <div className="h-full bg-white/40 animate-[grow_3s_linear_forwards]" style={{ width: "0%" }} />
           </div>
         )}
-      </div>
     </div>
   );
 }
@@ -379,7 +324,7 @@ function AuthPage({ onAuth }: { onAuth: (user: UserData) => void }) {
                 <p className="text-white text-sm font-bold leading-snug" style={SERIF}>
                   "In a world of noise, we deliver signal."
                 </p>
-                <p className="text-white/70 text-xs mt-1" style={MONO}>— TruthGuard, Est. 1899</p>
+                <p className="text-white/70 text-xs mt-1" style={MONO}>— TruthGuard, Est. 2026</p>
               </div>
             </div>
             <div className="border border-border p-5 mt-5">
@@ -684,8 +629,8 @@ function DetectionPage({ user, onLogout, onOpenJournal }: { user: UserData; onLo
 
             <div className="mt-8 relative overflow-hidden bg-muted h-36 hidden md:block">
               <img
-                src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=500&h=200&fit=crop&auto=format"
-                alt="Person reading a broadsheet newspaper at a cafe table"
+                src="/Pasted image.png"
+                alt="Newspaper collage background"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-foreground/30" />
