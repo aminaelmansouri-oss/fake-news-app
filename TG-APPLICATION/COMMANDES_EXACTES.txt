@@ -1,0 +1,48 @@
+════════════════════════════════════════════════════════════════════════════════
+COMMANDE EXACTE À COPIER-COLLER DEMAIN
+════════════════════════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANT: Copie-colle EXACTEMENT (pas de modifications!)
+
+────────────────────────────────────────────────────────────────────────────────
+✅ COMMANDE 1: Navigue au bon dossier
+────────────────────────────────────────────────────────────────────────────────
+
+cd "C:\Users\hp\OneDrive\M1-IAOC-S2\Technique d'IA\fake_news_agent\fake_news_agent"
+
+
+────────────────────────────────────────────────────────────────────────────────
+✅ COMMANDE 2: Lance le serveur
+────────────────────────────────────────────────────────────────────────────────
+
+..\..\.venv\Scripts\python.exe -m uvicorn api:app --host 0.0.0.0 --port 8000
+
+
+════════════════════════════════════════════════════════════════════════════════
+PROCÉDURE COMPLÈTE
+════════════════════════════════════════════════════════════════════════════════
+
+1. Ouvre PowerShell
+
+2. Copie-colle la COMMANDE 1:
+   cd "C:\Users\hp\OneDrive\M1-IAOC-S2\Technique d'IA\fake_news_agent\fake_news_agent"
+
+3. Appuie sur ENTRÉE
+
+4. Copie-colle la COMMANDE 2:
+   ..\..\.venv\Scripts\python.exe -m uvicorn api:app --host 0.0.0.0 --port 8000
+
+5. Appuie sur ENTRÉE
+
+6. ATTENDS 15 secondes
+
+7. Tu devrais voir:
+   "✓ Uvicorn running on http://0.0.0.0:8000"
+
+8. Ouvre Brave → http://localhost:8000
+
+9. LA PAGE DOIT AFFICHER "TRUTHGUARD"
+
+✅ C'EST BON!
+
+════════════════════════════════════════════════════════════════════════════════

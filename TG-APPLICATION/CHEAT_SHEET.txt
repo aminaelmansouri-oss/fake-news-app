@@ -1,0 +1,116 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                  CHEAT SHEET: LANCER L'APP DEMAIN                         ║
+║                          (À imprimer ou garder)                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱️  3 ÉTAPES SIMPLES (2-3 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ ✅ ÉTAPE 1: OUVRE POWERSHELL                                            │
+├─────────────────────────────────────────────────────────────────────────┤
+│ Clique sur le logo Windows                                              │
+│ Tape: PowerShell                                                        │
+│ Clique sur "Windows PowerShell" (le bleu)                               │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ ✅ ÉTAPE 2: COPIE-COLLE CETTE COMMANDE (une seule!)                     │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ cd "C:\Users\hp\OneDrive\M1-IAOC-S2\Technique d'IA\fake_news_agent     │
+│ \fake_news_agent"; ..\..\.venv\Scripts\python.exe -m uvicorn api:app  │
+│  --host 0.0.0.0 --port 8000                                           │
+│                                                                         │
+│ APPUIE: ENTRÉE                                                          │
+│ ATTENDS: 15 secondes                                                    │
+│                                                                         │
+│ TU DEVRAIS VOIR:                                                        │
+│ "✓ Uvicorn running on http://0.0.0.0:8000"                             │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ ✅ ÉTAPE 3: OUVRE LE NAVIGATEUR                                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│ Clique sur Brave                                                        │
+│ Tape dans la barre: http://localhost:8000                              │
+│ APPUIE: ENTRÉE                                                          │
+│ ATTENDS: 3-5 secondes                                                   │
+│                                                                         │
+│ TU DEVRAIS VOIR: La page Welcome avec le titre "TRUTHGUARD"            │
+│                                                                         │
+│ ✅ C'EST PRÊT POUR LA DÉMO!                                             │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 PENDANT LA DÉMO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Clique sur [POLITICS] (barre noire en haut)
+2. Clique sur [ENTER THE NEWSROOM] (gros bouton bleu)
+3. Scroll vers le bas pour montrer les articles
+4. Dis: "545 articles analysés avec 99.72% de précision"
+
+VOILÀ! 🎉
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚨 SI QUELQUE CHOSE NE MARCHE PAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "Port 8000 already in use"
+→ Tape: Stop-Process -Name python -Force
+→ Puis relance le serveur
+
+❌ "Page blanche"
+→ Appuie sur F5 (recharger)
+→ Attends 10 secondes
+
+❌ Les boutons ne réagissent pas
+→ Appuie sur CTRL+SHIFT+DELETE (vide cache)
+→ Puis F5
+
+❌ Autre erreur
+→ Ferme PowerShell (CTRL+C)
+→ Recommence depuis ÉTAPE 1
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ AVANT DE PARTIR (CHECKLIST)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+□ Ordi branché 100%
+□ Veille écran = JAMAIS
+□ Notifications = OFF (Do Not Disturb)
+□ Aucune app en arrière-plan
+□ Wi-Fi stable
+□ Testé une fois (ça marche!)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎤 SCRIPT À DIRE (Optionnel)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"Voici TruthGuard. Le système collecte automatiquement 545 articles chaque 
+jour, les analyse avec un modèle IA très précis (99.72%), et affiche les 
+résultats filtrés par catégories."
+
+[Clique sur Politics]
+
+"Je sélectionne la catégorie Politics..."
+
+[Clique sur ENTER THE NEWSROOM]
+
+"Voici le journal. Chaque article a un badge (REAL ou FAKE) et un score de 
+confiance. Notre modèle Stacking combine 5 classifieurs pour une analyse très 
+fiable."
+
+[Scroll]
+
+"Comme vous voyez, 545 articles, 65% vrais, 35% faux."
+
+"Merci! Des questions?"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💪 TU PEUX LE FAIRE! BON COURAGE! 🚀
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
